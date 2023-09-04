@@ -4,20 +4,11 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Discovery Part 1</h1>
+      <label for="map">Choose a map file:</label><br></br>
+      <input type="file" id="map" name="map" accept=""/>
+      <h4>Is valid file</h4>
+      <div class="file-upload">MAP HERE</div>
     </div>
   );
 }
