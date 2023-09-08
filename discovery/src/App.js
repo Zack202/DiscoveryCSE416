@@ -1,16 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Leafletmap from './components/Leafletmap';
+
 
 function App() {
   const [mapData, setMapData] = useState(null);
+  const [validFileMessage, setValidFileMessage] = useState("Waiting for file")
+  //console.log(validFileMessage)
+
+  const correctTypes = ['application/kml', 'application/zip', 'application/json']
 
   const handleFileChange = async (event) => { // Handle file input, here is where to add other file types
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
       try {
+        if(correctTypes.includes(selectedFile?.type)){
+          setValidFileMessage("It is a valid file")
+      } else { 
+          setValidFileMessage("It is NOT a valid file")
+          
+      }    
         const fileContent = await selectedFile.text();
         // Parse JSON file
         const parsedData = JSON.parse(fileContent);
@@ -28,7 +39,7 @@ function App() {
       <label for="mapfile">Choose a map file:</label><br></br>
       <input type="file" id="mapfile" name="mapfile" accept="" onChange={handleFileChange}/>
       <input type="button" value="Generate"></input>
-      <h4>Is valid file</h4>
+      <h4>{validFileMessage}</h4>
       <div id="map">
       <Leafletmap file={mapData}/>
       </div>
