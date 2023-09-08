@@ -1,7 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import "leaflet/dist/leaflet.css"
 import { MapContainer, GeoJSON } from 'react-leaflet';
-import geoData from "../data/customNA.geo.json";
 import "leaflet/dist/leaflet.css"
 import "./Leafletmap.css"
 
