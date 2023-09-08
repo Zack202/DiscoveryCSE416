@@ -20,7 +20,12 @@ function Leafletmap(props) {
   return (
     <div>
       <MapContainer key = {geoJSONKey} style={{height: "80vh"}} center={[20,100]} zoom={2}>
-        <GeoJSON style = {countryStyle} data={file}/>
+        <GeoJSON style = {countryStyle} data={file}
+        onEachFeature={(feature, layer) => {
+          if (feature.properties && feature.properties.name) {
+            layer.bindTooltip(feature.properties.name, { permanent: true });
+          }
+        }}/>
       </MapContainer>
     </div>
   );

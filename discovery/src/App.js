@@ -7,8 +7,8 @@ import Leafletmap from './components/Leafletmap';
 function App() {
   const [mapData, setMapData] = useState(null);
   const [validFileMessage, setValidFileMessage] = useState("Waiting for file")
-  const [selectedFile, setSelectedFile] = useState(null)
-  console.log(validFileMessage)
+  //console.log(validFileMessage)
+
 
   const correctTypes = ['application/kml', 'application/zip', 'application/json']
 
@@ -17,6 +17,12 @@ function App() {
 
     if (selectedFile) {
       try {
+        if(correctTypes.includes(selectedFile?.type)){
+          setValidFileMessage("It is a valid file")
+      } else { 
+          setValidFileMessage("It is NOT a valid file")
+          
+      }    
         const fileContent = await selectedFile.text();
         // Parse JSON file
         const parsedData = JSON.parse(fileContent);
