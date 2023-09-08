@@ -22,7 +22,6 @@ function App() {
         const parsedData = JSON.parse(fileContent);
         setMapData(parsedData);
 
- 
       } catch (error) {
         console.log('Error with file', error);
       }
@@ -43,7 +42,7 @@ function App() {
     <div className="App">
       <h1>Discovery Part 1</h1>
       <label for="mapfile">Choose a map file:</label><br></br>
-      <input type="file" id="mapfile" name="mapfile" accept="" onSubmit={handleFileChange}/>
+      <input type="file" id="mapfile" name="mapfile" accept="" onChange={handleFileChange}/>
       <input type="button" value="Generate"></input>
       <h4>{validFileMessage}</h4>
       <div id="map">

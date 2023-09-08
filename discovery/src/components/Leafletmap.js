@@ -1,15 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import "leaflet/dist/leaflet.css"
-import { MapContainer, TileLayer} from 'react-leaflet'
+import { MapContainer, GeoJSON } from 'react-leaflet';
+import "leaflet/dist/leaflet.css"
+import "./Leafletmap.css"
 
-function Leafletmap() {
+function Leafletmap(props) {
+  const { file } = props;
+
+  const geoJSONKey = JSON.stringify(file);
+
+  const countryStyle = {
+    fillColor: "maroon",
+    fillOpacity: 1,
+    color: "black",
+    weight: 2
+  };
+
+
   return (
-    <MapContainer center={[48.8566,2.3522]} zoom= {13}>
-        <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+    <div>
+      <MapContainer key = {geoJSONKey} style={{height: "80vh"}} center={[20,100]} zoom={2}>
+        <GeoJSON style = {countryStyle} data={file}/>
       </MapContainer>
+    </div>
   );
 }
 
