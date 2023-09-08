@@ -5,6 +5,9 @@ import Leafletmap from './components/Leafletmap';
 function App() {
   const [mapData, setMapData] = useState(null);
   const [validFileMessage, setValidFileMessage] = useState("Waiting for file")
+  //console.log(validFileMessage)
+
+
   const correctTypes = ['application/kml', 'application/zip', 'application/json']
 
   const handleFileChange = async (event) => { // Handle file input, here is where to add other file types
