@@ -9,10 +9,11 @@ function App() {
   const [validFileMessage, setValidFileMessage] = useState("Waiting for file")
   //console.log(validFileMessage)
 
+
   const correctTypes = ['application/kml', 'application/zip', 'application/json']
 
   const handleFileChange = async (event) => { // Handle file input, here is where to add other file types
-    const selectedFile = event.target.files[0];
+     setSelectedFile(event.target.files[0]);
 
     if (selectedFile) {
       try {
@@ -26,11 +27,21 @@ function App() {
         // Parse JSON file
         const parsedData = JSON.parse(fileContent);
         setMapData(parsedData);
+
       } catch (error) {
         console.log('Error with file', error);
       }
     }
   };
+
+  //refreshes the screen to update the correct file message
+  useEffect(() => {
+    if(correctTypes.includes(selectedFile?.type)){
+        setValidFileMessage("It is a valid file")
+    } else { 
+        setValidFileMessage("It is NOT a valid file")
+    }      
+}, [handleFileChange])
 
 
   return (
