@@ -1,6 +1,8 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import Leafletmap from './components/Leafletmap';
+import * as tj from "@mapbox/togeojson";
+
 
 
 function App() {
@@ -8,25 +10,43 @@ function App() {
   const [validFileMessage, setValidFileMessage] = useState("Waiting for file")
   //console.log(validFileMessage)
 
-  const correctTypes = ['application/kml', 'application/zip', 'application/json']
+  const correctTypes = ['kml','json','zip'];
 
   const handleFileChange = async (event) => { // Handle file input, here is where to add other file types
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
       try {
-        //check if the file type is valid
-        if(correctTypes.includes(selectedFile?.type)){
+        
+        const name = selectedFile.name;
+        const lastDot = name.lastIndexOf(".");
+        const ext = name.substring(lastDot + 1);
+
+        if(correctTypes.includes(ext)){
           setValidFileMessage("It is a valid file")
         } else { 
           setValidFileMessage("It is NOT a valid file")
         }     
         const fileContent = await selectedFile.text();
+
+        if(ext ==="kml"){
+          console.log("kml was recognized");
+          const xmldom = new DOMParser().parseFromString(fileContent, "text/xml"); // create xml dom object
+          const kmlToGJ = tj.kml(xmldom); // convert xml dom to geojson
+          setMapData(kmlToGJ);
+
+        }
+        else{
+
+
         // Parse JSON file
         const parsedData = JSON.parse(fileContent);
         setMapData(parsedData);
+        }
+        
       } catch (error) {
         setValidFileMessage('Error with file', error);
+        console.log(error);
       }
     }
   };
