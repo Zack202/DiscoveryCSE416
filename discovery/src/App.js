@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import Leafletmap from './components/Leafletmap';
@@ -16,18 +15,18 @@ function App() {
 
     if (selectedFile) {
       try {
+        //check if the file type is valid
         if(correctTypes.includes(selectedFile?.type)){
           setValidFileMessage("It is a valid file")
-      } else { 
+        } else { 
           setValidFileMessage("It is NOT a valid file")
-          
-      }    
+        }     
         const fileContent = await selectedFile.text();
         // Parse JSON file
         const parsedData = JSON.parse(fileContent);
         setMapData(parsedData);
       } catch (error) {
-        console.log('Error with file', error);
+        setValidFileMessage('Error with file', error);
       }
     }
   };
