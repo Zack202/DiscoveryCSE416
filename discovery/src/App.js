@@ -1,13 +1,13 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Leafletmap from './components/Leafletmap';
 import  shp  from 'shpjs';
+
 
 function App() {
   const [mapData, setMapData] = useState(null);
   const [validFileMessage, setValidFileMessage] = useState("Waiting for file")
   //console.log(validFileMessage)
-
 
   const correctTypes = ['application/kml', 'application/zip', 'application/json']
 
