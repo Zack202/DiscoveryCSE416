@@ -1,8 +1,11 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import Leafletmap from './components/Leafletmap';
-import  shp  from 'shpjs';
 
+import  shp  from 'shpjs';
+// I first installed browserfy, not sure if that was necessary
+// npm install shpjs --save
+// npm install buffer
 
 function App() {
   const [mapData, setMapData] = useState(null);
@@ -42,11 +45,11 @@ function App() {
               console.log("arrayBuffer:", buffer);
 
               // SHP+buffer Direct
-              /*
+              //this is directly what it said to do on the github
               const geojson = await shp(buffer);
               console.log("passed check");
               console.log('geojson', geojson);
-              */
+              
               
               // SHP+buffer then
               //await shp(buffer).then(function(geojson) {
