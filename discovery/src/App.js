@@ -8,9 +8,10 @@ import * as tj from "@mapbox/togeojson";
 function App() {
   const [mapData, setMapData] = useState(null);
   const [validFileMessage, setValidFileMessage] = useState("Waiting for file")
-  //console.log(validFileMessage)
+  var shapefile = require("shapefile");
+  // console.log(validFileMessage)
 
-  const correctTypes = ['kml','json','zip'];
+  const correctTypes = ['kml','json','zip','shp'];
 
   const handleFileChange = async (event) => { // Handle file input, here is where to add other file types
     const selectedFile = event.target.files[0];
@@ -36,8 +37,14 @@ function App() {
           setMapData(kmlToGJ);
 
         }
+        else if(ext === "shp"){
+          console.log("shp was recognized");
+          await selectedFile.arrayBuffer().then(async function(buffer){ // convert to ArrayBuffer
+            var feature = await shapefile.read(buffer); // convert buffer to geoJson
+            setMapData(feature); // set to geoJson
+          });
+        }
         else{
-
 
         // Parse JSON file
         const parsedData = JSON.parse(fileContent);
@@ -55,7 +62,7 @@ function App() {
   return (
     <div className="App">
       <h1>Discovery Part 1</h1>
-      <label for="mapfile">Choose a map file:</label><br></br>
+      <label htmlFor="mapfile">Choose a map file:</label><br></br>
       <input type="file" id="mapfile" name="mapfile" accept="" onChange={handleFileChange}/>
       <input type="button" value="Generate"></input>
       <h4>{validFileMessage}</h4>
