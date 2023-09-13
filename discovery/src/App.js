@@ -51,9 +51,9 @@ function App() {
               console.log("2nd step")
               setMapData(response);
             }
-            
+          }
             convert(buffer.target.result);
-          }else if(ext === "shp"){
+        }else if(ext === "shp"){
           console.log("shp was recognized");
           await selectedFile.arrayBuffer().then(async function(buffer){ // convert to ArrayBuffer
             var feature = await shapefile.read(buffer); // convert buffer to geoJson
