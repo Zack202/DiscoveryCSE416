@@ -10,9 +10,9 @@ function App() {
   const [mapData, setMapData] = useState(null);
   const [validFileMessage, setValidFileMessage] = useState("Waiting for file")
   const [ext, setExt] = useState("");
-  //console.log(validFileMessage)
+  var shapefile = require("shapefile");
 
-  const correctTypes = ['kml','json','zip'];
+  const correctTypes = ['kml','json','zip','shp'];
 
   const handleFileChange = async (event) => { // Handle file input, here is where to add other file types
     const selectedFile = event.target.files[0];
@@ -39,6 +39,7 @@ function App() {
           const kmlToGJ = tj.kml(xmldom); // convert xml dom to geojson
           setMapData(kmlToGJ);
 
+
         }else if(fileExt ==="zip"){
           var reader = new FileReader();
           reader.readAsArrayBuffer(selectedFile);
@@ -52,7 +53,13 @@ function App() {
             }
             
             convert(buffer.target.result);
-          }
+          }else if(ext === "shp"){
+          console.log("shp was recognized");
+          await selectedFile.arrayBuffer().then(async function(buffer){ // convert to ArrayBuffer
+            var feature = await shapefile.read(buffer); // convert buffer to geoJson
+            setMapData(feature); // set to geoJson
+          });
+        
         }else{
 
 
@@ -73,7 +80,7 @@ function App() {
   return (
     <div className="App">
       <h1>Discovery Part 1</h1>
-      <label for="mapfile">Choose a map file:</label><br></br>
+      <label htmlFor="mapfile">Choose a map file:</label><br></br>
       <input type="file" id="mapfile" name="mapfile" accept="" onChange={handleFileChange}/>
       <h4>{validFileMessage}</h4>
       <div id="map">
