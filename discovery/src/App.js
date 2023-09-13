@@ -54,7 +54,7 @@ function App() {
 
             convert(buffer.target.result);
           }
-        }else if(ext === "shp"){
+        }else if(fileExt === "shp"){
           console.log("shp was recognized");
           await selectedFile.arrayBuffer().then(async function(buffer){ // convert to ArrayBuffer
             var feature = await shapefile.read(buffer); // convert buffer to geoJson
