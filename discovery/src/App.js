@@ -81,7 +81,7 @@ function App() {
   return (
     <div className="App">
       <h1>Discovery Part 1</h1>
-      <label htmlFor="mapfile">Choose a map file:</label><br></br>
+      <label htmlFor="mapfile">Choose a map file (GeoJSON, kml, shp, or a zip file containing a shp & dbf):</label><br></br>
       <input type="file" id="mapfile" name="mapfile" accept="" onChange={handleFileChange}/>
       <h4>{validFileMessage}</h4>
       <div id="map">
