@@ -27,8 +27,8 @@ function Leafletmap(props) {
         onEachFeature={(feature, layer) => {
           if(fileType === "zip"){
             console.log("zip")
-            if (feature.properties && feature.properties.NAME) {
-              layer.bindTooltip(feature.properties.NAME, { permanent: true });
+            if (feature.properties && feature.properties.NAME_1) {
+              layer.bindTooltip(feature.properties.NAME_1, { permanent: true });
             }
           }else{
             if (feature.properties && feature.properties.name) {
